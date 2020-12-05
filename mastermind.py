@@ -1,8 +1,6 @@
 # Andrew Eppinger
 # CS 325 Fall 2020
 
-solution = ['Green','Blue','Green','Yellow'] #Hard codes in a solution for test purposes
-
 class Peg:                      #Creates a class for the guess pegs
 
     def __init__(self, color):  #Pegs have class attributes of color and 'used'. The used attribute
@@ -23,7 +21,11 @@ class Mastermind():
         self.game_state = 'Unfinished'
         self.guesses_made = 0
         self.guess_pegs = []
+        self.solution = ['Red', 'Orange', 'Yellow', 'Yellow'] #Hard codes in a solution for test purposes
 
+    def get_solution(self):
+
+        return print(self.solution)
 
     def make_guess(self, color1,color2,color3,color4):
 
@@ -36,7 +38,7 @@ class Mastermind():
 
             self.guess_pegs = []
             temp_solution = []
-            for peg in solution:
+            for peg in self.solution:
                 temp_solution.append(peg)
             guess_pegs_out = ''
 
@@ -56,7 +58,8 @@ class Mastermind():
             #The following 3 lines of code checks if the certificate is a valid solution. All it is doing is checking
             #the color of the pegs created by the guess against the color of the corresponding index in the solution.
             #The total run-time to verify the solution is O(n), where n is the length of the solution.
-            if p1.color == solution[0] and p2.color == solution[1] and p3.color == solution[2] and p4.color == solution[3]:
+            if p1.color == self.solution[0] and p2.color == self.solution[1] and p3.color == self.solution[2] \
+                    and p4.color == self.solution[3]:
                 self.game_state = 'Finished'
                 return print('Guess is correct, you win!')
 
@@ -64,22 +67,22 @@ class Mastermind():
             #if any, were a part of the solution.
 
             #This code determines if any guessed pegs were both the correct color and in the correct position.
-            if p1.color in temp_solution and p1.color == solution[0]:
+            if p1.color in temp_solution and p1.color == self.solution[0]:
                 self.guess_pegs.append('Black')
                 temp_solution.remove(p1.color)
                 p1.used = True
 
-            if p2.color in temp_solution and p2.color == solution[1]:
+            if p2.color in temp_solution and p2.color == self.solution[1]:
                 self.guess_pegs.append('Black')
                 temp_solution.remove(p2.color)
                 p2.used = True
 
-            if p3.color in temp_solution and p3.color == solution[2]:
+            if p3.color in temp_solution and p3.color == self.solution[2]:
                 self.guess_pegs.append('Black')
                 temp_solution.remove(p3.color)
                 p3.used = True
 
-            if p4.color in temp_solution and p4.color == solution[3]:
+            if p4.color in temp_solution and p4.color == self.solution[3]:
                 self.guess_pegs.append('Black')
                 temp_solution.remove(p4.color)
                 p4.used = True
@@ -121,7 +124,3 @@ class Mastermind():
                              'Guess Peg Board: ' + guess_pegs_out)
 
         return print('The game is finished. No more guesses can be made')
-
-test1 = Mastermind()
-test1.make_guess('Yellow','Yellow','Yellow','Orange')
-
